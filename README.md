@@ -14,11 +14,14 @@ rapidly find issues in your platform and get to a functional successful state.
 Add the official Crossplane stable repository
 Update your local Helm cache
 ```
-helm repo add crossplane-stable https://charts.crossplane.io/stable
 
+helm repo add crossplane-stable https://crossplane.io
 helm repo update
+helm install crossplane crossplane-stable/crossplane \
+  --namespace crossplane-system \
+  --create-namespace
+kubectl get pods -n crossplane-system
 
-helm install crossplane crossplane-stable/crossplane --namespace crossplane-system --create-namespace --set args='{"--enable-composition-webhook-schema-validation=false"}'
 ```
 
 ### Install Providers and config
@@ -28,6 +31,7 @@ kubectl apply -f provider.yaml
 # first generate GCP creds file with https://docs.crossplane.io/latest/getting-started/provider-gcp/#generate-a-gcp-service-account-json-file
 kubectl create secret generic gcp-secret -n crossplane-system --from-file=creds=./gcp-credentials.json
 kubectl apply -f providerconfig.yaml
+
 ```
 
 ## Deploy platform (the hard way)
