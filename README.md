@@ -11,13 +11,11 @@ rapidly find issues in your platform and get to a functional successful state.
 ## Pre-reqs
 
 ### Create a new control plane
+Add the official Crossplane stable repository
+Update your local Helm cache
 ```
-kind create cluster
-
-#1. Add the official Crossplane stable repository
 helm repo add crossplane-stable https://charts.crossplane.io/stable
 
-#2. Update your local Helm cache
 helm repo update
 
 helm install crossplane crossplane-stable/crossplane --namespace crossplane-system --create-namespace --set args='{"--enable-composition-webhook-schema-validation=false"}'
